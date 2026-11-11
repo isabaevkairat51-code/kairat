@@ -1,0 +1,432 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Учёба IT | 2026–2027</title>
+
+<style>
+:root {
+    --bg: #080d19;
+    --panel: #111a2c;
+    --text: #f5f7ff;
+    --muted: #9caac2;
+    --accent: #70e1c1;
+    --blue: #78aaff;
+    --line: #263650;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(circle at 15% 10%, #173b4c 0, transparent 35%),
+        radial-gradient(circle at 90% 60%, #20244c 0, transparent 35%),
+        var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+a { text-decoration: none; color: inherit; }
+
+header {
+    border-bottom: 1px solid var(--line);
+    background: rgba(8,13,25,.85);
+    backdrop-filter: blur(15px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.nav {
+    max-width: 1150px;
+    margin: auto;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.logo span { color: var(--accent); }
+
+nav { display: flex; gap: 28px; }
+
+nav a {
+    color: var(--muted);
+    font-size: 14px;
+    transition: .3s;
+}
+
+nav a:hover { color: var(--accent); }
+
+.container {
+    max-width: 1150px;
+    margin: auto;
+    padding: 25px;
+}
+
+.hero {
+    min-height: 620px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 35px;
+    padding: 75px 0;
+}
+
+.hero-content { max-width: 690px; }
+
+.label {
+    display: inline-block;
+    padding: 9px 15px;
+    border: 1px solid #326b68;
+    background: #153431;
+    color: var(--accent);
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+h1 {
+    font-size: clamp(45px, 7vw, 82px);
+    line-height: 1.08;
+    margin: 27px 0;
+    letter-spacing: -3px;
+}
+
+h1 span {
+    background: linear-gradient(90deg, #70e1c1, #78aaff);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.hero p {
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.9;
+    max-width: 650px;
+}
+
+.year {
+    font-size: 14px;
+    color: var(--accent);
+    margin-top: 25px;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
+
+.hero-visual {
+    width: 310px;
+    min-width: 250px;
+    height: 310px;
+    border-radius: 35px;
+    border: 1px solid #38516b;
+    background: linear-gradient(145deg, #172c42, #15172f);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 20px 80px #0007;
+    animation: floating 4s ease-in-out infinite;
+}
+
+.hero-visual .symbol { font-size: 95px; }
+
+.hero-visual h3 { margin-top: 15px; font-size: 22px; }
+
+.hero-visual p { font-size: 13px; margin-top: 8px; }
+
+@keyframes floating {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+.section { padding: 55px 0 75px; }
+
+.section-label {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+h2 {
+    font-size: clamp(30px, 4vw, 43px);
+    margin: 15px 0;
+}
+
+.subtitle {
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 700px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-top: 38px;
+}
+
+.card {
+    position: relative;
+    overflow: hidden;
+    padding: 32px;
+    min-height: 330px;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: linear-gradient(145deg, #15243a, #101728);
+    transition: .35s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent);
+    box-shadow: 0 20px 55px #0005;
+}
+
+.card::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: #70e1c1;
+    filter: blur(100px);
+    opacity: .12;
+    right: -60px;
+    top: -50px;
+}
+
+.card-icon { font-size: 48px; margin-bottom: 25px; }
+
+.card-number {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.card h3 { font-size: 27px; margin: 12px 0; }
+
+.card p {
+    color: var(--muted);
+    line-height: 1.8;
+    font-size: 15px;
+    min-height: 55px;
+}
+
+.open-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 27px;
+    padding: 13px 20px;
+    background: var(--accent);
+    color: #07131a;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: .3s;
+}
+
+.open-link:hover {
+    background: #a0f4df;
+    transform: translateX(5px);
+}
+
+.card:nth-child(2) .open-link { background: var(--blue); }
+
+.card:nth-child(2) .open-link:hover { background: #a5c4ff; }
+
+.quote {
+    margin-top: 25px;
+    padding: 35px;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 17px 17px 0;
+    background: #132a2b;
+}
+
+.quote h3 { font-size: 23px; margin-bottom: 12px; }
+
+.quote p { color: #b5c9ca; line-height: 1.8; }
+
+footer {
+    border-top: 1px solid var(--line);
+    padding: 30px 15px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+footer span { color: var(--accent); }
+
+@media(max-width: 800px) {
+    .hero {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 55px 0;
+    }
+
+    .hero-visual { width: 100%; height: 250px; }
+
+    .cards { grid-template-columns: 1fr; }
+}
+
+@media(max-width: 540px) {
+    .nav { flex-direction: column; gap: 15px; }
+
+    nav {
+        gap: 17px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    h1 { letter-spacing: -1.5px; }
+
+    .container { padding: 18px; }
+
+    .card { padding: 25px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="nav">
+        <div class="logo">MY<span> IT</span></div>
+        <nav>
+            <a href="#home">Главная</a>
+            <a href="#projects">Мои сайты</a>
+            <a href="#about">Обо мне</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="label">MY PERSONAL IT JOURNEY</div>
+
+            <h1>
+                Учёба <span>IT</span><br>
+                2026–2027
+            </h1>
+
+            <p>
+                Добро пожаловать в моё пространство обучения
+                информационным технологиям. Здесь начинается
+                новый этап моего пути в программировании,
+                разработке приложений и создании современных технологий.
+                Каждый изученный урок приближает меня к большим целям.
+            </p>
+
+            <div class="year">
+                LEARN · PRACTICE · CREATE · DEVELOP
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="symbol">💻</div>
+            <h3>Future Developer</h3>
+            <p>Мой путь в мире IT</p>
+        </div>
+    </section>
+
+    <section class="section" id="projects">
+        <div class="section-label">MY DIGITAL SPACE / 01</div>
+
+        <h2>Мои проекты и обучение</h2>
+
+        <p class="subtitle">
+            Здесь находятся мои основные направления.
+            Каждый проект имеет собственный сайт и отдельную страницу.
+            Выбери нужный раздел, чтобы продолжить работу.
+        </p>
+
+        <div class="cards">
+
+            <article class="card">
+                <div class="card-icon">📚</div>
+                <div class="card-number">PROJECT 01</div>
+                <h3>План учёбы</h3>
+
+                <p>
+                    Моя программа обучения программированию.
+                    Темы, уроки, практика, задания и развитие
+                    профессиональных навыков.
+                </p>
+
+                <a class="open-link" href="./Plan-study/plan_study.html">
+                    Открыть план учёбы →
+                </a>
+            </article>
+
+            <article class="card">
+                <div class="card-icon">🎙️</div>
+                <div class="card-number">PROJECT 02</div>
+                <h3>Кыргызский синтезатор</h3>
+
+                <p>
+                    Мой проект преобразования кыргызского текста
+                    в естественную голосовую речь.
+                    Разработка технологии Kyrgyz TTS.
+                </p>
+
+              <a class="open-link" href="./Kyrgyz-tts-mini/index.html">
+                    Открыть синтезатор →
+                        </a>
+            </article>
+
+        </div>
+    </section>
+
+    <section class="section" id="about">
+        <div class="section-label">MY MINDSET / 02</div>
+        <h2>Маленькие шаги — большие результаты</h2>
+
+        <div class="quote">
+            <h3>Моё развитие начинается сегодня.</h3>
+
+            <p>
+                Программирование — это не только написание кода.
+                Это умение мыслить, решать проблемы, создавать
+                новые идеи и превращать их в реальные проекты.
+
+                <br><br>
+
+                Моя задача на 2026–2027 учебный год —
+                постоянно учиться, получать новые знания,
+                практиковаться и создавать собственные технологии.
+
+                <br><br>
+
+                <b>Не просто изучать IT, а создавать будущее своими руками.</b>
+            </p>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    MY IT JOURNEY © 2026–2027
+    <br><br>
+    <span>Learn today. Build tomorrow.</span>
+</footer>
+
+</body>
+</html>
+``` 
