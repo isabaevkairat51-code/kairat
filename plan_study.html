@@ -1,0 +1,895 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Backend-разработка и искусственный интеллект</title>
+
+<style>
+:root {
+  --bg: #0b1020;
+  --panel: #121a2e;
+  --text: #f4f7ff;
+  --muted: #a8b4ce;
+  --accent: #72e0c1;
+  --blue: #83a9ff;
+  --line: #2a3858;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 80% 0%, #1b3150 0, transparent 38%),
+    var(--bg);
+  color: var(--text);
+  font: 16px/1.7 system-ui, Arial, sans-serif;
+}
+
+a {
+  color: var(--accent);
+}
+
+.container {
+  max-width: 1120px;
+  margin: auto;
+  padding: 24px;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #0b1020ed;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav {
+  max-width: 1120px;
+  margin: auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.logo {
+  font-weight: 900;
+  font-size: 20px;
+  white-space: nowrap;
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: var(--accent);
+}
+
+.hero {
+  min-height: 570px;
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 35px;
+  align-items: center;
+  padding-top: 65px;
+  padding-bottom: 65px;
+}
+
+.label {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+h1 {
+  font-size: clamp(38px, 6vw, 66px);
+  line-height: 1.1;
+  letter-spacing: -2px;
+  margin: 16px 0;
+}
+
+h1 em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+.intro {
+  color: var(--muted);
+  font-size: 18px;
+  max-width: 650px;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  padding: 12px 19px;
+  border-radius: 11px;
+  background: var(--accent);
+  color: #07131a;
+  font-weight: 800;
+  transition: .2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn.secondary {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--text);
+}
+
+.terminal {
+  background: #080d18;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 25px 70px #0005;
+}
+
+.dots {
+  display: flex;
+  gap: 7px;
+  margin-bottom: 22px;
+}
+
+.dots i {
+  width: 10px;
+  height: 10px;
+  background: #43506a;
+  border-radius: 50%;
+}
+
+.dots i:first-child {
+  background: #ff7f86;
+}
+
+.dots i:nth-child(2) {
+  background: #ffd36a;
+}
+
+.dots i:nth-child(3) {
+  background: var(--accent);
+}
+
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: #b6c8e9;
+  font: 14px/2 ui-monospace, Consolas, monospace;
+}
+
+.green {
+  color: var(--accent);
+}
+
+.purple {
+  color: #c8a6ff;
+}
+
+section {
+  padding: 55px 0;
+  scroll-margin-top: 75px;
+}
+
+.section-title {
+  margin-bottom: 28px;
+}
+
+h2 {
+  font-size: clamp(29px, 4vw, 42px);
+  line-height: 1.2;
+  letter-spacing: -.8px;
+  margin: 8px 0 12px;
+}
+
+.subtitle {
+  color: var(--muted);
+  max-width: 780px;
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 17px;
+}
+
+.card {
+  background: linear-gradient(145deg, var(--panel), #101729);
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  padding: 23px;
+  transition: border-color .2s, transform .2s;
+}
+
+.card:hover {
+  border-color: #4b8e80;
+  transform: translateY(-3px);
+}
+
+.icon {
+  font-size: 31px;
+}
+
+.card h3 {
+  margin: 8px 0;
+  font-size: 21px;
+}
+
+.card p {
+  color: var(--muted);
+  margin: 8px 0;
+}
+
+.card ul {
+  color: var(--muted);
+  padding-left: 20px;
+}
+
+.card li {
+  margin: 5px 0;
+}
+
+.tag {
+  display: inline-block;
+  color: var(--accent);
+  background: #22314b;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 750;
+  margin-bottom: 8px;
+}
+
+.featured {
+  border-color: #4b8e80;
+  background: linear-gradient(145deg, #142d35, #111a2d);
+}
+
+.callout {
+  margin-top: 20px;
+  padding: 18px 20px;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  background: #122a2a;
+  color: #d9f8ef;
+}
+
+.ai-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 17px;
+}
+
+.flow {
+  margin-top: 25px;
+}
+
+.flow-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 20px 0;
+}
+
+.number {
+  flex: 0 0 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  background: #243651;
+  color: var(--accent);
+  border-radius: 11px;
+  font-weight: 900;
+}
+
+.flow-step p {
+  color: var(--muted);
+  margin: 3px 0;
+}
+
+footer {
+  margin-top: 35px;
+  border-top: 1px solid var(--line);
+  padding: 28px 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+@media (max-width: 800px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 45px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ai-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 540px) {
+  .container {
+    padding: 18px;
+  }
+
+  .nav {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 13px 18px;
+  }
+
+  nav {
+    gap: 12px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  h1 {
+    letter-spacing: -1px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">MY<span>TECH</span></div>
+
+    <nav>
+      <a href="#home">Главная</a>
+      <a href="#languages">Языки Backend</a>
+      <a href="#tools">Технологии</a>
+      <a href="#ai">Backend и ИИ</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+<!-- ГЛАВНАЯ СТРАНИЦА -->
+
+<section class="hero" id="home">
+
+  <div>
+    <div class="label">Программирование · Backend · ИИ</div>
+
+    <h1>
+      Я хочу изучать <em>Backend</em> и создавать приложения и ИИ
+    </h1>
+
+    <p class="intro">
+      Backend-разработка позволяет создавать серверную часть приложений:
+      обрабатывать данные, управлять пользователями, подключать базы данных
+      и разрабатывать API. С помощью Backend можно создавать приложения,
+      в которых работает искусственный интеллект.
+    </p>
+
+    <div class="buttons">
+      <a class="btn" href="#languages">Языки Backend ↓</a>
+      <a class="btn secondary" href="#ai">Как создавать ИИ?</a>
+    </div>
+  </div>
+
+  <div class="terminal">
+    <div class="dots"><i></i><i></i><i></i></div>
+
+    <pre><span class="purple">// Backend-приложение</span>
+
+<span class="green">GET</span> /api/message
+
+<span class="green">200 OK</span>
+
+{
+  "backend": "working",
+  "database": "connected",
+  "ai": "ready"
+}
+
+<span class="purple">// Запрос → Сервер → Ответ</span></pre>
+  </div>
+
+</section>
+
+<!-- ЯЗЫКИ BACKEND -->
+
+<section id="languages">
+
+  <div class="section-title">
+    <div class="label">01 / Языки программирования</div>
+
+    <h2>Все основные языки Backend-разработки</h2>
+
+    <p class="subtitle">
+      Backend-разработчики используют разные языки для создания серверов,
+      API, баз данных и приложений. Не существует одного языка,
+      который лучше абсолютно во всём.
+    </p>
+  </div>
+
+  <div class="grid">
+
+    <article class="card featured">
+      <span class="tag">Backend + ИИ</span>
+      <div class="icon">🐍</div>
+      <h3>Python</h3>
+
+      <p>
+        Универсальный язык, подходящий для Backend, автоматизации,
+        анализа данных и искусственного интеллекта.
+      </p>
+
+      <ul>
+        <li>Django — полноценные веб-приложения.</li>
+        <li>FastAPI — быстрые API для приложений.</li>
+        <li>Flask — небольшие веб-сервисы.</li>
+        <li>PyTorch — разработка моделей ИИ.</li>
+        <li>Интеграция готовых ИИ-моделей.</li>
+      </ul>
+
+      <p><b>Подходит для:</b> Backend, ИИ и машинного обучения.</p>
+    </article>
+
+    <article class="card">
+      <span class="tag">Веб-серверы</span>
+      <div class="icon">🟨</div>
+      <h3>JavaScript</h3>
+
+      <p>
+        Позволяет создавать серверные приложения с помощью Node.js.
+        Также используется для интерактивных сайтов.
+      </p>
+
+      <ul>
+        <li>Node.js — запуск JavaScript на сервере.</li>
+        <li>Express — создание API.</li>
+        <li>NestJS — организация больших приложений.</li>
+        <li>Чаты, сервисы и серверная логика.</li>
+      </ul>
+
+      <p><b>Подходит для:</b> веб-приложений и API.</p>
+    </article>
+
+    <article class="card">
+      <span class="tag">Типизация</span>
+      <div class="icon">🔷</div>
+      <h3>TypeScript</h3>
+
+      <p>
+        Расширение JavaScript со статической проверкой типов.
+        Помогает находить многие ошибки ещё до запуска приложения.
+      </p>
+
+      <ul>
+        <li>Node.js.</li>
+        <li>NestJS и Express.</li>
+        <li>Большие серверные проекты.</li>
+        <li>Более структурированный код.</li>
+      </ul>
+
+      <p><b>Подходит для:</b> современных Backend-систем.</p>
+    </article>
+
+    <article class="card">
+      <span class="tag">Крупные системы</span>
+      <div class="icon">☕</div>
+      <h3>Java</h3>
+
+      <p>
+        Используется в корпоративных приложениях, банковских системах,
+        крупных сервисах и серверных платформах.
+      </p>
+
+      <ul>
+        <li>Spring Boot — Backend-приложения.</li>
+        <li>Hibernate — работа с базами данных.</li>
+        <li>REST API.</li>
+        <li>Масштабируемые системы.</li>
+      </ul>
+
+      <p><b>Подходит для:</b> корпоративного Backend.</p>
+    </article>
+
+    <article class="card">
+      <span class="tag">Экосистема .NET</span>
+      <div class="icon">🟪</div>
+      <h3>C#</h3>
+
+      <p>
+        Язык для серверных приложений, корпоративных сервисов
+        и бизнес-систем на платформе .NET.
+      </p>
+
+      <ul>
+        <li>ASP.NET Core — создание API.</li>
+        <li>Entity Framework Core — доступ к данным.</li>
+        <li>Интеграция с базами данных.</li>
+        <li>Облачные сервисы.</li>
+      </ul>
+
+      <p><b>Подходит для:</b> Backend и бизнес-приложений.</p>
+    </article>
+
+    <article class="card">
+      <span class="tag">Производительность</span>
+      <div class="icon">🚀</div>
+      <h3>Go (Golang)</h3>
+
+      <p>
+        Разработан для создания эффективных сетевых приложений,
+        микросервисов и облачных инструментов.
+      </p>
+
+      <ul>
+        <li>HTTP-серверы.</li>
+        <li>Gin и Echo.</li>
+        <li>Микросервисы.</li>
+        <li>Параллельная обработка задач.</li>
+      </ul>
+
+      <p><b>Подходит для:</b> сетевых и облачных сервисов.</p>
+    </article>
+
+    <article class="card">
+      <span class="tag">Системное программирование</span>
+      <div class="icon">🦀</div>
+      <h3>Rust</h3>
+
+      <p>
+        Позволяет создавать производительные программы с сильными
+        гарантиями безопасности памяти.
+      </p>
+
+      <ul>
+        <li>Axum и Actix Web.</li>
+        <li>Системные сервисы.</li>
+        <li>Производительные API.</li>
+        <li>Низкоуровневая разработка.</li>
+      </ul>
+
+      <p><b>Подходит для:</b> производительных и системных решений.</p>
+    </article>
+
+    <article class="card">
+      <span class="tag">Веб-разработка</span>
+      <div class="icon">🐘</div>
+      <h3>PHP</h3>
+
+      <p>
+        Серверный язык, который широко применяется при создании сайтов,
+        интернет-магазинов и веб-приложений.
+      </p>
+
+      <ul>
+        <li>Laravel.</li>
+        <li>Symfony.</li>
+        <li>WordPress.</li>
+        <li>Работа с MySQL.</li>
+      </ul>
+
+      <p><b>Подходит для:</b> сайтов и серверных веб-приложений.</p>
+    </article>
+
+    <article class="card">
+      <span class="tag">Быстрая разработка</span>
+      <div class="icon">💎</div>
+      <h3>Ruby</h3>
+
+      <p>
+        Язык с удобным синтаксисом, который используют для быстрого
+        создания веб-приложений.
+      </p>
+
+      <ul>
+        <li>Ruby on Rails.</li>
+        <li>Создание API.</li>
+        <li>Работа с базами данных.</li>
+        <li>Веб-сервисы.</li>
+      </ul>
+
+      <p><b>Подходит для:</b> веб-приложений и стартапов.</p>
+    </article>
+
+    <article class="card">
+      <span class="tag">Экосистема JVM</span>
+      <div class="icon">🟣</div>
+      <h3>Kotlin</h3>
+
+      <p>
+        Современный язык, который применяется для Android-разработки
+        и серверных приложений.
+      </p>
+
+      <ul>
+        <li>Ktor.</li>
+        <li>Spring Boot.</li>
+        <li>Работа с Java-библиотеками.</li>
+        <li>Серверные API.</li>
+      </ul>
+
+      <p><b>Подходит для:</b> Backend и приложений на JVM.</p>
+    </article>
+
+    <article class="card">
+      <span class="tag">Экосистема Microsoft</span>
+      <div class="icon">🪟</div>
+      <h3>Visual Basic .NET</h3>
+
+      <p>
+        Язык платформы .NET, который встречается в существующих
+        корпоративных приложениях и системах автоматизации.
+      </p>
+
+      <ul>
+        <li>Приложения на .NET.</li>
+        <li>Поддержка существующих систем.</li>
+        <li>Работа с данными.</li>
+      </ul>
+
+      <p><b>Подходит для:</b> поддержки и развития .NET-систем.</p>
+    </article>
+
+    <article class="card">
+      <span class="tag">Другие языки</span>
+      <div class="icon">🌐</div>
+      <h3>Другие технологии</h3>
+
+      <p>
+        В Backend также применяются языки и платформы для определённых
+        задач, компаний и существующих проектов.
+      </p>
+
+      <ul>
+        <li>Scala — серверные приложения на JVM.</li>
+        <li>Elixir — распределённые системы.</li>
+        <li>Erlang — отказоустойчивые сервисы.</li>
+        <li>Perl — автоматизация и поддержка систем.</li>
+      </ul>
+
+      <p><b>Выбор зависит:</b> от задачи и проекта.</p>
+    </article>
+
+  </div>
+
+  <div class="callout">
+    <b>Важно:</b> SQL тоже необходим Backend-разработчику.
+    Это язык запросов для реляционных баз данных, например PostgreSQL
+    и MySQL. Он используется вместе с Python, Java, JavaScript,
+    C# и другими языками.
+  </div>
+
+</section>
+
+<!-- ИНСТРУМЕНТЫ BACKEND -->
+
+<section id="tools">
+
+  <div class="section-title">
+    <div class="label">02 / Основные технологии</div>
+
+    <h2>Что ещё использует Backend-разработчик?</h2>
+
+    <p class="subtitle">
+      Для полноценной работы сервера одного языка недостаточно.
+      Backend-разработчики используют базы данных, API, инструменты
+      контроля версий и технологии развёртывания.
+    </p>
+  </div>
+
+  <div class="grid">
+
+    <article class="card">
+      <div class="icon">🗄️</div>
+      <h3>Базы данных</h3>
+      <p>
+        Хранят пользователей, пароли в защищённом виде, сообщения,
+        заказы и другую информацию.
+      </p>
+      <ul>
+        <li>PostgreSQL</li>
+        <li>MySQL</li>
+        <li>SQLite</li>
+        <li>MongoDB</li>
+        <li>Redis</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <div class="icon">🔌</div>
+      <h3>API и HTTP</h3>
+      <p>
+        Позволяют интерфейсу приложения отправлять запросы серверу
+        и получать ответы.
+      </p>
+      <ul>
+        <li>REST API</li>
+        <li>HTTP и HTTPS</li>
+        <li>JSON</li>
+        <li>WebSocket</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <div class="icon">🧰</div>
+      <h3>Инструменты разработчика</h3>
+      <p>
+        Помогают создавать, проверять, запускать и поддерживать
+        серверные приложения.
+      </p>
+      <ul>
+        <li>Git и GitHub</li>
+        <li>Linux</li>
+        <li>Docker</li>
+        <li>Автоматические тесты</li>
+      </ul>
+    </article>
+
+  </div>
+
+</section>
+
+<!-- BACKEND И ИСКУССТВЕННЫЙ ИНТЕЛЛЕКТ -->
+
+<section id="ai">
+
+  <div class="section-title">
+    <div class="label">03 / Backend + AI</div>
+
+    <h2>Какой язык лучше для создания ИИ?</h2>
+
+    <p class="subtitle">
+      Если нужно изучать Backend и одновременно создавать приложения
+      с искусственным интеллектом, Python — один из самых удобных
+      вариантов. Он широко применяется и для серверной разработки,
+      и для машинного обучения.
+    </p>
+  </div>
+
+  <div class="ai-grid">
+
+    <article class="card featured">
+      <div class="icon">🐍</div>
+      <h3>Python — лучший универсальный старт</h3>
+
+      <p>
+        Python позволяет создавать Backend, подключать ИИ-модели,
+        обрабатывать данные и разрабатывать собственные решения
+        машинного обучения.
+      </p>
+
+      <ul>
+        <li><b>FastAPI:</b> сервер и API для ИИ-приложения.</li>
+        <li><b>PyTorch:</b> создание и обучение моделей.</li>
+        <li><b>scikit-learn:</b> классическое машинное обучение.</li>
+        <li><b>Transformers:</b> работа со многими языковыми моделями.</li>
+        <li><b>NumPy:</b> вычисления и работа с массивами.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <div class="icon">🧠</div>
+      <h3>Другие языки для ИИ</h3>
+
+      <p>
+        ИИ не ограничивается Python. Другие языки используются
+        для отдельных задач и частей систем.
+      </p>
+
+      <ul>
+        <li><b>C++:</b> производительные вычисления и системные компоненты.</li>
+        <li><b>Java:</b> корпоративные ИИ-сервисы.</li>
+        <li><b>JavaScript:</b> ИИ в веб-приложениях и Node.js.</li>
+        <li><b>C#:</b> интеграция ИИ в приложения .NET.</li>
+        <li><b>Rust:</b> производительные системные компоненты.</li>
+      </ul>
+    </article>
+
+  </div>
+
+  <div class="callout">
+    <b>Какой язык выбрать?</b><br>
+    Для начала изучения Backend и создания приложений с ИИ я рекомендую
+    Python. Если основная задача — веб-серверы, JavaScript и TypeScript
+    тоже подходят. Для обучения больших ИИ-моделей важны не только язык,
+    но и математика, данные, алгоритмы и вычислительные ресурсы.
+  </div>
+
+  <div class="card flow">
+
+    <h3>Как работает приложение с искусственным интеллектом?</h3>
+
+    <div class="flow-step">
+      <div class="number">1</div>
+      <div>
+        <b>Пользователь отправляет запрос</b>
+        <p>Например, задаёт вопрос ИИ-помощнику.</p>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="number">2</div>
+      <div>
+        <b>Backend обрабатывает запрос</b>
+        <p>Проверяет данные и при необходимости обращается к базе данных.</p>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="number">3</div>
+      <div>
+        <b>Backend обращается к ИИ</b>
+        <p>Отправляет запрос модели через библиотеку или API ИИ-сервиса.</p>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="number">4</div>
+      <div>
+        <b>ИИ формирует ответ</b>
+        <p>Модель обрабатывает запрос и возвращает результат.</p>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="number">5</div>
+      <div>
+        <b>Backend возвращает результат</b>
+        <p>Приложение показывает пользователю полученный ответ.</p>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+  Backend-разработка · Языки программирования · API · Базы данных · Искусственный интеллект
+</footer>
+
+</main>
+
+</body>
+</html>
+```

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRYPTO BOSS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&family=Unbounded:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="logo"><span class="coin t">T</span><span class="coin a">A</span><span>CRYPTO <b>BOSS</b></span></div>
+  <div class="muted">Настольная игра про криптовалюты</div>
+</header>
+
+<main id="menuScreen">
+
+  <section class="hero">
+    <div>
+      <h1>CRYPTO<br><span>BOSS</span></h1>
+      <p class="muted">Покупай криптовалюты, управляй рынком, зарабатывай деньги и стань самым богатым игроком!</p>
+    </div>
+    <div class="dice" aria-hidden="true"><div class="die"></div><div class="die"></div></div>
+  </section>
+
+  <section class="panel">
+    <h2>Выбери режим игры</h2>
+
+    <div class="row">
+      <button id="localModeBtn" class="selected">Локальная игра</button>
+      <button id="onlineModeBtn">Онлайн-игра</button>
+    </div>
+
+    <div id="localSetup">
+      <label>Количество игроков</label>
+      <div class="row" id="playerOptions">
+        <button data-count="2" class="player-option">2</button>
+        <button data-count="3" class="player-option">3</button>
+        <button data-count="4" class="player-option active">4</button>
+        <button data-count="5" class="player-option">5</button>
+        <button data-count="6" class="player-option">6</button>
+      </div>
+
+      <div id="localNames" class="row"></div>
+
+      <button class="primary" id="startLocalBtn" style="width:100%;margin-top:20px">
+        НАЧАТЬ ЛОКАЛЬНУЮ ИГРУ →
+      </button>
+
+      <p class="muted">Все игроки играют на одном компьютере.</p>
+    </div>
+
+    <div id="onlineSetup" class="hidden">
+      <label>Твоё имя</label>
+      <input id="onlineName" maxlength="18" placeholder="Введи своё имя">
+
+      <div class="row" style="margin-top:15px">
+        <button class="primary" id="createRoomBtn">Создать комнату</button>
+      </div>
+
+      <label>Код комнаты</label>
+      <div class="row">
+        <input id="roomCodeInput" maxlength="5" placeholder="ABCDE">
+        <button id="joinRoomBtn">Войти</button>
+      </div>
+
+      <div id="onlineLobby" class="hidden">
+        <div class="notice">Код комнаты: <strong id="roomCodeLabel"></strong></div>
+        <div id="onlinePlayers"></div>
+        <button class="primary" id="startOnlineBtn" style="width:100%;margin-top:15px">
+          НАЧАТЬ ОНЛАЙН-ИГРУ →
+        </button>
+      </div>
+    </div>
+
+    <div id="menuMessage" class="message"></div>
+  </section>
+
+  <section class="perks">
+    <div><span class="coin t">T</span><span><strong>2–6 игроков</strong><p>На одном компьютере или онлайн</p></span></div>
+    <div><span class="coin a">A</span><span><strong>20 клеток</strong><p>Покупай активы и собирай ренту</p></span></div>
+    <div><span class="coin s">S</span><span><strong>Криптобиржа</strong><p>Торгуй монетами и ставь на рынок</p></span></div>
+  </section>
+</main>
+
+<section id="gameScreen" class="screen hidden">
+
+  <div class="row" style="align-items:center">
+    <h2>CRYPTO EXCHANGE</h2>
+    <span id="modeLabel" class="muted">Локальная игра</span>
+    <button id="backToMenuBtn">В меню</button>
+  </div>
+
+  <div class="notice" id="turnInfo">Ожидание игры</div>
+
+  <div class="game-layout">
+
+    <div class="game-card">
+      <h3>Игровое поле</h3>
+      <div id="board" class="board"></div>
+
+      <div class="notice" id="diceResult">Ожидание броска</div>
+
+      <div class="row">
+        <button class="primary" id="rollDiceBtn">🎲 Бросить кубик</button>
+        <button id="buyAssetBtn" class="hidden">Купить актив</button>
+        <button id="skipPurchaseBtn" class="hidden">Пропустить</button>
+      </div>
+
+      <div id="gameMessage" class="message"></div>
+    </div>
+
+    <div>
+
+      <div class="game-card">
+        <h3>Игроки</h3>
+        <div id="playersList"></div>
+      </div>
+
+      <div class="game-card">
+        <h3>Криптобиржа</h3>
+        <div id="marketList"></div>
+
+        <label>Монета</label>
+        <select id="tradeCoin"></select>
+
+        <label>Количество</label>
+        <input id="tradeQuantity" type="number" min="0.000001" step="any" value="1">
+
+        <div class="row" style="margin-top:12px">
+          <button id="buyCoinBtn">Купить</button>
+          <button id="sellCoinBtn">Продать</button>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <h3>Ставка на рынок</h3>
+
+        <label>Монета</label>
+        <select id="betCoin"></select>
+
+        <label>Прогноз</label>
+        <select id="betDirection">
+          <option value="up">Рост</option>
+          <option value="down">Падение</option>
+        </select>
+
+        <label>Сумма</label>
+        <input id="marketBetAmount" type="number" min="1" value="50">
+
+        <button id="marketBetBtn" style="width:100%;margin-top:12px">
+          Сделать ставку
+        </button>
+      </div>
+
+      <div class="game-card">
+        <h3>Мой портфель</h3>
+        <div id="myPortfolio"></div>
+      </div>
+
+      <div class="game-card">
+        <h3>История игры</h3>
+        <div id="gameLog" class="log"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
